@@ -316,7 +316,7 @@ $if(rhead)$\rhead{$rhead$}
 $else$
 \rhead{\theauthor}
 $endif$
-$if(lfoot)$\lfoot{$lfoot$}$else$\lfoot{}$endif$
+$if(lfoot)$\lfoot{\footnotesize{$lfoot$}}$else$\lfoot{}$endif$
 $if(cfoot)$\cfoot{$cfoot$}$else$\cfoot{}$endif$
 % $if(cfoot)$\cfoot{$cfoot$}$else$\cfoot{\footnotesize \thepage\ | \pageref{LastPage}}$endif$
 % $if(rfoot)$\rfoot{$rfoot$}$else$\rfoot{}$endif$
