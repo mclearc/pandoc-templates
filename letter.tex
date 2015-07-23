@@ -1,0 +1,76 @@
+\documentclass[12pt,stdletter,orderfromtodate,sigleft,dateleft]{newlfm}
+
+\widowpenalty=1000
+\clubpenalty=1000
+\usepackage{charter}
+\usepackage{graphicx}
+\usepackage{color}
+\definecolor{darkblue}{rgb}{0.0,0.0,.5}
+%% hyperlinks
+\usepackage[xetex, 
+	colorlinks=true,
+	urlcolor=darkblue,
+  linkcolor=darkblue, plainpages=false,   	
+  	]{hyperref}
+
+
+% \newlfmP{dateskipbefore=50pt}
+\newlfmP{sigsize=-5pt}
+\newlfmP{sigskipbefore=30pt}
+\newlfmP{Headlinewd=1pt,Footlinewd=0pt}
+\newlfmP{addrfromphone} % Print a phone number under the sender's address
+\newlfmP{addrfromemail} % Print an email address under the sender's address
+
+\PhrPhone{Phone} % Customize the "Telephone" text
+\PhrEmail{Email} % Customize the "E-mail" text
+
+% %& LOGO
+\newsavebox{\Lunl}\sbox{\Lunl}{\parbox[b]{1.75in}{\vspace{0.5in}
+\includegraphics[width=1.2\linewidth]{logo.png}}} % Company/institution logo at the top left of the page
+\makeletterhead{Unl}{\Lheader{\usebox{\Lunl}}}
+\lthUnl % Print the company/institution logo
+
+%----------------------------------------------------------------------------------------
+%	YOUR NAME AND CONTACT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\namefrom{$author$}
+\addrfrom{$from$}
+$if(phone)$
+\phonefrom{$phone$} % Phone number
+$else$
+\phonefrom{(607) 216-8718} % Phone number
+$endif$
+$if(email)$
+\emailfrom{\href{mailto:$email$}{$email$} } % Email address
+$else$
+\emailfrom{\href{mailto:mclear@unl.edu}{mclear@unl.edu} } % Email address
+$endif$
+%----------------------------------------------------------------------------------------
+%	ADDRESSEE AND GREETING/CLOSING
+%----------------------------------------------------------------------------------------
+\addrto{$to$}
+$if(date)$
+\dateset{$date$}
+$else$
+\dateset{\today}
+$endif$
+\greetto{$greeting$,}
+% Closing text
+\closeline{$closing$,}
+% \closeline{$closing$,\\
+% \fromsig{\includegraphics[scale=1]{Signature.png}} \\
+% }
+% \closeline{Sincerely,\\ 
+% \fromsig{\includegraphics[scale=1]{Signature.png}} \\
+% \fromname{$author$}
+% }
+
+\newlfmP{noLines}
+
+
+\begin{document}
+\begin{newlfm}
+$body$
+\end{newlfm}
+\end{document}
