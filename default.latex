@@ -68,6 +68,10 @@ $endif$
 \usepackage{comment}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 %\definecolor{gray}{rgb}{0.459,0.438,0.471}
+\definecolor{coolblack}{rgb}{0.0, 0.18, 0.39}
+\definecolor{darkblue}{rgb}{0.0, 0.0, 0.55}
+\definecolor{darkgreen}{rgb}{0.0, 0.2, 0.13}
+\definecolor{darkmidnightblue}{rgb}{0.0, 0.2, 0.4}
 \usepackage[hang,flushmargin, stable, multiple]{footmisc}
 %\usepackage{footnotebackref}
 \usepackage{titling}
@@ -91,9 +95,9 @@ $endif$
             pdfauthor={$author-meta$},
             pdftitle={$title-meta$},
             colorlinks=true,
-            citecolor=$if(citecolor)$$citecolor$$else$blue$endif$,
-            urlcolor=$if(urlcolor)$$urlcolor$$else$blue$endif$,
-            linkcolor=$if(linkcolor)$$linkcolor$$else$magenta$endif$,
+            citecolor=$if(citecolor)$$citecolor$$else$darkblue$endif$,
+            urlcolor=$if(urlcolor)$$urlcolor$$else$darkblue$endif$,
+            linkcolor=$if(linkcolor)$$linkcolor$$else$darkblue$endif$,
             pdfborder={0 0 0}}
 \urlstyle{same}  % don't use monospace font for urls
 $if(lang)$

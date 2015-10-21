@@ -36,10 +36,15 @@
 
 \namefrom{$author$}
 \addrfrom{$from$}
+$if(date)$
+\dateset{$date$}
+$else$
+\dateset{\today}
+$endif$
 $if(phone)$
 \phonefrom{$phone$} % Phone number
 $else$
-\phonefrom{(607) 216-8718} % Phone number
+\phonefrom{(607) 216--8718} % Phone number
 $endif$
 $if(email)$
 \emailfrom{\href{mailto:$email$}{$email$} } % Email address
@@ -49,28 +54,20 @@ $endif$
 %----------------------------------------------------------------------------------------
 %	ADDRESSEE AND GREETING/CLOSING
 %----------------------------------------------------------------------------------------
-\addrto{$to$}
-$if(date)$
-\dateset{$date$}
-$else$
-\dateset{\today}
-$endif$
 \greetto{$greeting$,}
-% Closing text
-\closeline{$closing$,}
-% \closeline{$closing$,\\
-% \fromsig{\includegraphics[scale=1]{Signature.png}} \\
-% }
-% \closeline{Sincerely,\\ 
-% \fromsig{\includegraphics[scale=1]{Signature.png}} \\
-% \fromname{$author$}
-% }
+\closeline{Sincerely yours,\\ \fromsig{\includegraphics[scale=1]{Signature.png}} \\} % Closing text
+
+\nameto{$toname$} % Addressee of the letter above the to address
+\addrto{$toddress$}
 
 \newlfmP{noLines}
 
-
 \begin{document}
+
 \begin{newlfm}
-$body$
+
+  $body$
+
 \end{newlfm}
+
 \end{document}
