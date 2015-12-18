@@ -51,45 +51,62 @@ $endif$
 \usepackage{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
+%PACKAGES
+\usepackage{soul}
+\usepackage{setspace}
+\usepackage{mdwlist}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{type1cm} % scalable fonts
+\usepackage{lettrine}
+\usepackage{microtype}
+\usepackage{epigraph}
+\usepackage{flexisym}
+\usepackage{realscripts}
+\usepackage[italian=guillemets]{csquotes}
+\usepackage{comment}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+%\definecolor{gray}{rgb}{0.459,0.438,0.471}
+\definecolor{coolblack}{rgb}{0.0, 0.18, 0.39}
+\definecolor{darkblue}{rgb}{0.0, 0.0, 0.55}
+\definecolor{darkgreen}{rgb}{0.0, 0.2, 0.13}
+\definecolor{darkmidnightblue}{rgb}{0.0, 0.2, 0.4}
+\usepackage[hang,flushmargin, stable, multiple]{footmisc}
+%\usepackage{footnotebackref}
+\usepackage{titling}
+\usepackage{footnote}
+\makesavenoteenv{minipage}
+\usepackage{manyfoot}
+\DeclareNewFootnote{A}[fnsymbol]
+
 $if(geometry)$
 \usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
 $endif$
-\usepackage{hyperref}
-$if(colorlinks)$
-\PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
-$endif$
-\hypersetup{unicode=true,
-$if(title-meta)$
-            pdftitle={$title-meta$},
-$endif$
-$if(author-meta)$
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
             pdfauthor={$author-meta$},
-$endif$
-$if(keywords)$
-            pdfkeywords={$for(keywords)$$keywords$$sep$; $endfor$},
-$endif$
-$if(colorlinks)$
+            pdftitle={$title-meta$},
             colorlinks=true,
-            linkcolor=$if(linkcolor)$$linkcolor$$else$Maroon$endif$,
-            citecolor=$if(citecolor)$$citecolor$$else$Blue$endif$,
-            urlcolor=$if(urlcolor)$$urlcolor$$else$Blue$endif$,
-$else$
-            pdfborder={0 0 0},
-$endif$
-            breaklinks=true}
+            citecolor=$if(citecolor)$$citecolor$$else$darkblue$endif$,
+            urlcolor=$if(urlcolor)$$urlcolor$$else$darkblue$endif$,
+            linkcolor=$if(linkcolor)$$linkcolor$$else$darkblue$endif$,
+            pdfborder={0 0 0}}
 \urlstyle{same}  % don't use monospace font for urls
 $if(lang)$
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \usepackage[shorthands=off,$for(babel-otherlangs)$$babel-otherlangs$,$endfor$main=$babel-lang$]{babel}
-$if(babel-newcommands)$
-  $babel-newcommands$
-$endif$
-\else
+\ifxetex
   \usepackage{polyglossia}
-  \setmainlanguage[$polyglossia-lang.options$]{$polyglossia-lang.name$}
-$for(polyglossia-otherlangs)$
-  \setotherlanguage[$polyglossia-otherlangs.options$]{$polyglossia-otherlangs.name$}
-$endfor$
+  \setmainlanguage{$mainlang$}
+  \setotherlanguages{$for(otherlang)$$otherlang$$sep$,$endfor$}
+\else
+  \usepackage[shorthands=off,$lang$]{babel}
 \fi
 $endif$
 $if(natbib)$
@@ -98,9 +115,9 @@ $if(natbib)$
 $endif$
 $if(biblatex)$
 \usepackage[hyperref=true,
-      backref=true,
-      backend=biber,
-      style=philosophy-modern,
+			backref=true,
+			backend=biber,
+			style=philosophy-modern,
             autocite=footnote,  %turn autocites into footnotes
             isbn=false,         %don't print ISBNs
             doi=true,           %print DOIs
@@ -109,6 +126,10 @@ $if(biblatex)$
 $for(bibliography)$
 \addbibresource{$bibliography$}
 $endfor$
+% \DefineBibliographyStrings{english}{%
+%     backrefpage  ={p.}, % for single page number
+%     backrefpages ={pp.} % for multiple page numbers
+% }
 $endif$
 $if(listings)$
 \usepackage{listings}
@@ -121,7 +142,7 @@ $highlighting-macros$
 $endif$
 $if(verbatim-in-note)$
 \usepackage{fancyvrb}
-\VerbatimFootnotes % allows verbatim text in footnotes
+\VerbatimFootnotes
 $endif$
 $if(tables)$
 \usepackage{longtable,booktabs}
@@ -146,11 +167,8 @@ $if(strikeout)$
 % avoid problems with \sout in headers with hyperref:
 \pdfstringdefDisableCommands{\renewcommand{\sout}{}}
 $endif$
-$if(indent)$
-$else$
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt plus 2pt minus 1pt}
-$endif$
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -159,69 +177,10 @@ $if(numbersections)$
 $else$
 \setcounter{secnumdepth}{0}
 $endif$
-$if(subparagraph)$
-$else$
-% Redefines (sub)paragraphs to behave more like sections
-\ifx\paragraph\undefined\else
-\let\oldparagraph\paragraph
-\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-\fi
-\ifx\subparagraph\undefined\else
-\let\oldsubparagraph\subparagraph
-\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-\fi
+$if(verbatim-in-note)$
+\VerbatimFootnotes % allows verbatim text in footnotes
 $endif$
-$if(dir)$
-\ifxetex
-  % load bidi as late as possible as it modifies e.g. graphicx
-  $if(latex-dir-rtl)$
-  \usepackage[RTLdocument]{bidi}
-  $else$
-  \usepackage{bidi}
-  $endif$
-\fi
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \TeXXeTstate=1
-  \newcommand{\RL}[1]{\beginR #1\endR}
-  \newcommand{\LR}[1]{\beginL #1\endL}
-  \newenvironment{RTL}{\beginR}{\endR}
-  \newenvironment{LTR}{\beginL}{\endL}
-\fi
-$endif$
-$for(header-includes)$
-$header-includes$
-$endfor$
 
-%%%%%%%%%% EXTRA PACKAGES %%%%%%%%%%
-% $if(spacing)$
-% \usepackage[$spacing$]{setspace}
-% $else$
-% \usepackage[onehalfspacing]{setspace}
-% $endif$
-\usepackage{soul}
-\usepackage{mdwlist}
-\usepackage{enumitem}
-\usepackage{fancyhdr}
-\usepackage{lastpage}
-\usepackage{type1cm} % scalable fonts
-\usepackage{lettrine}
-\usepackage{epigraph}
-\usepackage{flexisym}
-\usepackage{realscripts}
-\usepackage[italian=guillemets]{csquotes}
-\usepackage{comment}
-\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
-\definecolor{coolblack}{rgb}{0.0, 0.18, 0.39}
-\definecolor{darkblue}{rgb}{0.0, 0.0, 0.55}
-\definecolor{darkgreen}{rgb}{0.0, 0.2, 0.13}
-\definecolor{darkmidnightblue}{rgb}{0.0, 0.2, 0.4}
-\usepackage[hang,flushmargin, stable, multiple]{footmisc}
-% \usepackage{footnotebackref}
-\usepackage{titling}
-\usepackage{footnote}
-\makesavenoteenv{minipage}
-\usepackage{manyfoot}
-\DeclareNewFootnote{A}[fnsymbol]
 
 %BEAMER
 $if(theme)$
@@ -245,7 +204,6 @@ $if(graphics)$
 \setkeys{Gin}{height=.75\textheight}
 $endif$
 
-
 %LAYOUT SETTINGS
 $if(noindent)$
 $else$
@@ -261,9 +219,9 @@ $endif$
 \addtolength{\footskip}{0.5cm}
 \setlength{\footnotemargin}{0.3cm}
 \setlength{\footnotesep}{0.4cm}
-% \widowpenalty=8000
-% \clubpenalty=8000
-% \interfootnotelinepenalty=10000
+\widowpenalty=8000
+\clubpenalty=8000
+\interfootnotelinepenalty=10000
 %\setlength{\footnotesep}{0.35cm}
 \setlength{\headheight}{15pt}
 \setlength{\epigraphwidth}{.8\textwidth}
@@ -296,16 +254,37 @@ $endif$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+
+% $if(title)$
+% \title{$title$$if(subtitle)$\\\vspace{0.5em}{\large $subtitle$}$endif$}
+% $endif$
+% $if(author)$
+% \author{$for(author)$$author$$sep$ \and $endfor$}
+% $endif$
+% \date{$date$}
+% $for(header-includes)$
+% $header-includes$
+% $endfor$
+
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
 \begin{document}
 $if(title)$
 \maketitle
 $endif$
 $if(abstract)$
 \begin{abstract}
-$abstract$
+\noindent \footnotesize{$abstract$}
 \end{abstract}
 $endif$
-
 
 $for(include-before)$
 $include-before$
@@ -313,9 +292,7 @@ $include-before$
 $endfor$
 $if(toc)$
 {
-$if(colorlinks)$
 \hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$black$endif$}
-$endif$
 \setcounter{tocdepth}{$toc-depth$}
 \tableofcontents
 }
@@ -325,6 +302,11 @@ $if(lot)$
 $endif$
 $if(lof)$
 \listoffigures
+$endif$
+
+$if(spacing)$
+$else$
+\onehalfspacing
 $endif$
 
 %%%%%% Page style %%%%%%%%
@@ -373,7 +355,6 @@ $if(biblatex)$
 \addcontentsline{toc}{section}{References}
 \printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
 $endif$
-
 $for(include-after)$
 $include-after$
 
