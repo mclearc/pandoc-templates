@@ -1,0 +1,378 @@
+\documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$babel-lang$,$endif$$if(papersize)$$papersize$,$endif$$for(classoption)$$classoption$$sep$,$endfor$]{$documentclass$}
+$if(fontfamily)$
+\usepackage[$for(fontfamilyoptions)$$fontfamilyoptions$$sep$,$endfor$]{$fontfamily$}
+$else$
+\usepackage{lmodern}
+$endif$
+$if(linestretch)$
+\usepackage{setspace}
+\setstretch{$linestretch$}
+$endif$
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[$if(fontenc)$$fontenc$$else$T1$endif$]{fontenc}
+  \usepackage[utf8]{inputenc}
+$if(euro)$
+  \usepackage{eurosym}
+$endif$
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+$if(euro)$
+  \newcommand{\euro}{€}
+$endif$
+$if(mainfont)$
+    \setmainfont[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$]{$mainfont$}
+$endif$
+$if(sansfont)$
+    \setsansfont[$for(sansfontoptions)$$sansfontoptions$$sep$,$endfor$]{$sansfont$}
+$endif$
+$if(monofont)$
+    \setmonofont[Mapping=tex-ansi$if(monofontoptions)$,$for(monofontoptions)$$monofontoptions$$sep$,$endfor$$endif$]{$monofont$}
+$endif$
+$if(mathfont)$
+    \setmathfont(Digits,Latin,Greek)[$for(mathfontoptions)$$mathfontoptions$$sep$,$endfor$]{$mathfont$}
+$endif$
+$if(CJKmainfont)$
+    \usepackage{xeCJK}
+    \setCJKmainfont[$for(CJKoptions)$$CJKoptions$$sep$,$endfor$]{$CJKmainfont$}
+$endif$
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+$if(geometry)$
+\usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
+$endif$
+\usepackage{hyperref}
+$if(colorlinks)$
+\PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
+$endif$
+\hypersetup{unicode=true,
+$if(title-meta)$
+            pdftitle={$title-meta$},
+$endif$
+$if(author-meta)$
+            pdfauthor={$author-meta$},
+$endif$
+$if(keywords)$
+            pdfkeywords={$for(keywords)$$keywords$$sep$; $endfor$},
+$endif$
+$if(colorlinks)$
+            colorlinks=true,
+            linkcolor=$if(linkcolor)$$linkcolor$$else$Maroon$endif$,
+            citecolor=$if(citecolor)$$citecolor$$else$Blue$endif$,
+            urlcolor=$if(urlcolor)$$urlcolor$$else$Blue$endif$,
+$else$
+            pdfborder={0 0 0},
+$endif$
+            hyperfootnotes=true,
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+$if(lang)$
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[shorthands=off,$for(babel-otherlangs)$$babel-otherlangs$,$endfor$main=$babel-lang$]{babel}
+$if(babel-newcommands)$
+  $babel-newcommands$
+$endif$
+\else
+  \usepackage{polyglossia}
+  \setmainlanguage[$polyglossia-lang.options$]{$polyglossia-lang.name$}
+$for(polyglossia-otherlangs)$
+  \setotherlanguage[$polyglossia-otherlangs.options$]{$polyglossia-otherlangs.name$}
+$endfor$
+\fi
+$endif$
+$if(natbib)$
+\usepackage{natbib}
+\bibliographystyle{$if(biblio-style)$$biblio-style$$else$plainnat$endif$}
+$endif$
+$if(biblatex)$
+\usepackage[hyperref=true,
+      backref=true,
+      backend=biber,
+      style=philosophy-modern,
+            autocite=footnote,  %turn autocites into footnotes
+            isbn=false,         %don't print ISBNs
+            doi=true,           %print DOIs
+            url=false,          %don't print URLs
+            ]{biblatex}
+$for(bibliography)$
+\addbibresource{$bibliography$}
+$endfor$
+$endif$
+$if(listings)$
+\usepackage{listings}
+$endif$
+$if(lhs)$
+\lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
+$endif$
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+$if(verbatim-in-note)$
+\usepackage{fancyvrb}
+\VerbatimFootnotes % allows verbatim text in footnotes
+$endif$
+$if(tables)$
+\usepackage{longtable,booktabs}
+$endif$
+$if(graphics)$
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+$endif$
+$if(links-as-notes)$
+% Make links footnotes instead of hotlinks:
+\renewcommand{\href}[2]{#2\footnote{\url{#1}}}
+$endif$
+$if(strikeout)$
+\usepackage[normalem]{ulem}
+% avoid problems with \sout in headers with hyperref:
+\pdfstringdefDisableCommands{\renewcommand{\sout}{}}
+$endif$
+$if(indent)$
+$else$
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+$endif$
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+$if(numbersections)$
+\setcounter{secnumdepth}{$secnumdepth$}
+$else$
+\setcounter{secnumdepth}{0}
+$endif$
+$if(subparagraph)$
+$else$
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+$endif$
+$if(dir)$
+\ifxetex
+  % load bidi as late as possible as it modifies e.g. graphicx
+  $if(latex-dir-rtl)$
+  \usepackage[RTLdocument]{bidi}
+  $else$
+  \usepackage{bidi}
+  $endif$
+\fi
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \TeXXeTstate=1
+  \newcommand{\RL}[1]{\beginR #1\endR}
+  \newcommand{\LR}[1]{\beginL #1\endL}
+  \newenvironment{RTL}{\beginR}{\endR}
+  \newenvironment{LTR}{\beginL}{\endL}
+\fi
+$endif$
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+%%%%%%%%%% EXTRA PACKAGES %%%%%%%%%%
+\usepackage{soul}
+\usepackage{emptypage}
+\usepackage{mdwlist}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{type1cm} % scalable fonts
+\usepackage{lettrine}
+\usepackage{epigraph}
+\usepackage{flexisym}
+\usepackage{realscripts}
+\usepackage[italian=guillemets]{csquotes}
+\usepackage{comment}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\definecolor{coolblack}{rgb}{0.0, 0.18, 0.39}
+\definecolor{darkblue}{rgb}{0.0, 0.0, 0.55}
+\definecolor{darkgreen}{rgb}{0.0, 0.2, 0.13}
+\definecolor{darkmidnightblue}{rgb}{0.0, 0.2, 0.4}
+\usepackage[hang,flushmargin, stable, multiple]{footmisc}
+% \usepackage{footnotebackref}
+\usepackage{titling}
+\usepackage{footnote}
+\makesavenoteenv{minipage}
+\usepackage{manyfoot}
+\DeclareNewFootnote{A}[fnsymbol]
+
+
+
+%LAYOUT SETTINGS
+$if(noindent)$
+\setlength{\parindent}{0em}
+$else$
+\setlength{\parindent}{1.5em}
+$endif$
+$if(linestretch)$
+\setlength{\parskip}{$linestretch$pt}
+$else$
+\setlength{\parskip}{1pt}
+$endif$
+% \setlength{\parskip}{4pt plus 2pt minus 1pt}
+% \setlength{\parskip}{1pt plus4pt minus3pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+
+%symbol footnote flag, helpful for epigraph note
+\long\def\symbolfootnote[#1]#2{\begingroup\def\thefootnote{\fnsymbol{footnote}}\footnote[#1]{#2}\endgroup}
+
+\addtolength{\footskip}{0.5cm}
+\setlength{\footnotemargin}{0.3cm}
+\setlength{\footnotesep}{0.4cm}
+\widowpenalty=4000
+\clubpenalty=4000
+% \interfootnotelinepenalty=10000
+%\setlength{\footnotesep}{0.35cm}
+\setlength{\headheight}{15pt}
+\setlength{\epigraphwidth}{.8\textwidth}
+
+\newfontface\smallcapsfont[Scale=0.75,LetterSpace=3.0]{Optima}
+\renewcommand\textsc[1]{{\smallcapsfont \uppercase{#1}}}
+
+%HEADER VARIABLES
+
+\newcommand{\subtitle}[1]{%
+  \posttitle{%
+    \par\end{flushleft}
+    \begin{flushleft}\large#1\end{flushleft}
+    \vskip0.5em}%
+}
+
+$if(title)$
+\pretitle{\begin{flushleft}\Huge}
+\title{\textbf{$title$}}
+\posttitle{\par\end{flushleft}}
+\setlength{\droptitle}{-80pt}
+$endif$
+$if(subtitle)$
+\subtitle{$subtitle$}
+$endif$
+$if(author)$
+\preauthor{\begin{flushleft}\Large}
+%\author{$for(author)$\Large $author.name$\vspace{0.05in}   $sep$ \and $endfor$}
+\author{$for(author)$$author$ $if(affiliation)$\newline\footnotesize{$affiliation$}$endif$ $if(authoremail)$\newline\footnotesize $authoremail$ $endif$ $endfor$}
+\postauthor{\par\end{flushleft}}
+$endif$
+$if(date)$
+\predate{\begin{flushleft}\footnotesize}
+\date{$date$}
+\postdate{\par\end{flushleft}}
+$else$
+\date{}
+$endif$
+
+\usepackage[Lenny]{fncychap}
+\usepackage{fancyhdr}
+
+% \pagestyle{fancy}
+% \fancyhead[LO,L]{$title$}
+% \fancyhead[RO,R]{\rightmark}
+% \fancyfoot[CO,C] {\footnotesize \thepage\ | \pageref{LastPage}}
+% \renewcommand{\chaptermark}[1]{\markright{#1}{}}
+% \renewcommand{\sectionmark}[1]{\markright{#1}{}}
+
+\fancypagestyle{IHA-fancy-style}{%
+  \fancyhf{}% Clear header and footer
+  % \fancyhead[LE,RO]{\slshape \rightmark}
+  \fancyhead[LO,L]{\slshape $title$}
+  % \fancyhead[LO,RE]{\slshape \rightmark}
+  \fancyhead[RO,R]{\slshape \rightmark}
+  % \fancyfoot[C]{\footnotesize \thepage\ | \pageref{LastPage}}% Custom footer
+  \fancyfoot[RO,RE]{\footnotesize \thepage\ | \pageref{LastPage}}% Custom footer
+  \renewcommand{\headrulewidth}{0.4pt}% Line at the header visible
+  \renewcommand{\footrulewidth}{0.0pt}% Line at the footer visible
+}
+  \renewcommand{\chaptermark}[1]{\markright{#1}{}}
+  \renewcommand{\sectionmark}[1]{\markright{#1}{}}
+% Redefine the plain page style
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyfoot[RO,RE]{\footnotesize \thepage\ | \pageref{LastPage}}%
+  \renewcommand{\headrulewidth}{0pt}% Line at the header invisible
+  \renewcommand{\footrulewidth}{0.0pt}% Line at the footer visible
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+$if(title)$
+\maketitle
+$endif$
+$if(abstract)$
+\begin{abstract}
+\noindent $abstract$
+\end{abstract}
+$endif$
+
+
+$for(include-before)$
+$include-before$
+
+$endfor$
+$if(toc)$
+{
+$if(colorlinks)$
+\hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$black$endif$}
+$endif$
+\setcounter{tocdepth}{$toc-depth$}
+\tableofcontents
+}
+$endif$
+$if(lot)$
+\listoftables
+$endif$
+$if(lof)$
+\listoffigures
+$endif$
+
+\pagestyle{IHA-fancy-style}
+$body$
+
+$if(natbib)$
+$if(bibliography)$
+$if(biblio-title)$
+$if(book-class)$
+\renewcommand\bibname{$biblio-title$}
+$else$
+\renewcommand\refname{$biblio-title$}
+$endif$
+$endif$
+\bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
+
+$endif$
+$endif$
+$if(biblatex)$
+\phantomsection
+\addcontentsline{toc}{section}{References}
+\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
+$endif$
+
+$for(include-after)$
+$include-after$
+
+$endfor$
+\end{document}
