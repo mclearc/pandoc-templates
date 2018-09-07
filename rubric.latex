@@ -148,33 +148,10 @@ $if(strikeout)$
 % avoid problems with \sout in headers with hyperref:
 \pdfstringdefDisableCommands{\renewcommand{\sout}{}}
 $endif$
-$if(indent)$
-$else$
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-$endif$
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-$if(numbersections)$
-$if(secnumdepth)$
-\setcounter{secnumdepth}{$secnumdepth$}
-$else$
-\setcounter{secnumdepth}{0}
-$endif$
-$endif$
-$if(subparagraph)$
-$else$
-% Redefines (sub)paragraphs to behave more like sections
-\ifx\paragraph\undefined\else
-\let\oldparagraph\paragraph
-\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-\fi
-\ifx\subparagraph\undefined\else
-\let\oldsubparagraph\subparagraph
-\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-\fi
-$endif$
 $if(dir)$
 \ifxetex
   % load bidi as late as possible as it modifies e.g. graphicx
@@ -197,9 +174,6 @@ $header-includes$
 $endfor$
 
 %%%%%%%%%% EXTRA PACKAGES %%%%%%%%%%
-% \usepackage[UKenglish,USenglish]{babel}
-\usepackage[autostyle]{csquotes}
-% \MakeOuterQuote{"}
 \usepackage{soul}
 \usepackage{mdwlist}
 \usepackage{enumitem}
@@ -211,7 +185,7 @@ $endfor$
 \usepackage{epigraph}
 \usepackage{flexisym}
 \usepackage{realscripts}
-% \usepackage[italian=guillemets]{csquotes}
+\usepackage[italian=guillemets]{csquotes}
 \usepackage{comment}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \definecolor{coolblack}{rgb}{0.0, 0.18, 0.39}
@@ -250,23 +224,9 @@ $endif$
 
 
 %LAYOUT SETTINGS
-$if(noindent)$
+% \usepackage[parfill]{parskip}
 \setlength{\parindent}{0em}
-$else$
-\setlength{\parindent}{1.5em}
-$endif$
-$if(linestretch)$
-\setlength{\parskip}{$linestretch$pt}
-$else$
-\setlength{\parskip}{1pt}
-$endif$
-$if(parskip)$
-\setlength{\parskip}{$parskip$}
-$else$
-\setlength{\parskip}{1pt}
-$endif$
-
-% \setlength{\parskip}{4pt plus 2pt minus 1pt}
+\setlength{\parskip}{4pt plus 2pt minus 1pt}
 % \setlength{\parskip}{1pt plus4pt minus3pt}
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 
@@ -289,15 +249,15 @@ $endif$
 %HEADER VARIABLES
 
 $if(title)$
-\pretitle{\begin{flushleft}\huge}
+\pretitle{\begin{flushleft}\Large}
 \title{\textbf{$title$}}
 \posttitle{\par\end{flushleft}}
-\setlength{\droptitle}{-80pt}
+% \setlength{\droptitle}{-60pt}
 $endif$
 
 % make the following work even when paper is blinded for review/refereeing
 $if(author)$
-\preauthor{\begin{flushleft}\Large}
+\preauthor{\begin{flushleft}\normalsize}
   $if(affiliation)$
   \author{$author$
     \newline\footnotesize{$affiliation$}
@@ -311,14 +271,9 @@ $if(author)$
 \postauthor{\par\end{flushleft}} 
 $endif$
 
-$if(date)$
-\predate{\begin{flushleft}\footnotesize}
-\date{$date$
-$if(publication)$\newline\footnotesize{$publication$}$endif$}
-\postdate{\par\end{flushleft}}
-$else$
-\date{}
-$endif$
+\predate{\begin{flushleft}\normalsize}
+\date{\today}
+\postdate{\par\end{flushleft}} 
 
 % this only works if affiliation, etc are always included 
 % $if(author)$
@@ -382,7 +337,7 @@ $endif$
 \chead{}
 $if(rhead)$\rhead{$rhead$}
 $else$
-\rhead{\theauthor}
+\rhead{ }
 $endif$
 $if(lfoot)$\lfoot{\footnotesize{$lfoot$}}$else$\lfoot{}$endif$
 $if(cfoot)$\cfoot{$cfoot$}$else$\cfoot{}$endif$

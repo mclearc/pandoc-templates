@@ -1,8 +1,11 @@
 \documentclass[12pt,stdletter,orderfromtodate,sigleft,dateleft]{newlfm}
-
-\widowpenalty=1000
-\clubpenalty=1000
-\usepackage{charter}
+$if(fontfamily)$
+\usepackage[$for(fontfamilyoptions)$$fontfamilyoptions$$sep$,$endfor$]{$fontfamily$}
+$else$
+\usepackage{charter} % Use the Charter font for the document text
+$endif$
+\widowpenalty=10000
+\clubpenalty=10000
 \usepackage{graphicx}
 \usepackage{color}
 \definecolor{darkblue}{rgb}{0.0,0.0,.5}
@@ -14,19 +17,24 @@
   	]{hyperref}
 
 
+
 % \newlfmP{dateskipbefore=50pt}
-\newlfmP{sigsize=-5pt}
-\newlfmP{sigskipbefore=30pt}
-\newlfmP{Headlinewd=1pt,Footlinewd=0pt}
+\newlfmP{headermarginskip=10pt}
+\newlfmP{sigsize=0pt}
+\newlfmP{sigskipbefore=15pt}
+\newlfmP{Headlinewd=.75pt,Footlinewd=0pt}
 \newlfmP{addrfromphone} % Print a phone number under the sender's address
 \newlfmP{addrfromemail} % Print an email address under the sender's address
+
+\makeatletter
+\let\ps@othhead\ps@empty
+\makeatother
 
 \PhrPhone{Phone} % Customize the "Telephone" text
 \PhrEmail{Email} % Customize the "E-mail" text
 
 % %& LOGO
-\newsavebox{\Lunl}\sbox{\Lunl}{\parbox[b]{1.75in}{\vspace{0.5in}
-\includegraphics[width=1.2\linewidth]{logo.png}}} % Company/institution logo at the top left of the page
+\newsavebox{\Lunl}\sbox{\Lunl}{\parbox[b]{1.75in}{\vspace{0.5in} \includegraphics[width=1.2\linewidth]{logo.png}}} % Company/institution logo at the top left of the page
 \makeletterhead{Unl}{\Lheader{\usebox{\Lunl}}}
 \lthUnl % Print the company/institution logo
 
@@ -44,23 +52,23 @@ $endif$
 $if(phone)$
 \phonefrom{$phone$} % Phone number
 $else$
-\phonefrom{(607) 216--8718} % Phone number
+\phonefrom{(607) 379--9604} % Phone number
 $endif$
 $if(email)$
-\emailfrom{\href{mailto:$email$}{$email$} } % Email address
+\emailfrom{\href{mailto:$email$}{$email$}} % Email address
 $else$
-\emailfrom{\href{mailto:mclear@unl.edu}{mclear@unl.edu} } % Email address
+\emailfrom{\href{mailto:mclear@unl.edu}{mclear@unl.edu}} % Email address
 $endif$
 %----------------------------------------------------------------------------------------
 %	ADDRESSEE AND GREETING/CLOSING
 %----------------------------------------------------------------------------------------
-\greetto{$greeting$,}
-\closeline{Sincerely yours,\\ \fromsig{\includegraphics[scale=1]{Signature.png}} \\} % Closing text
-
 \nameto{$toname$} % Addressee of the letter above the to address
-\addrto{$toddress$}
+\addrto{$toaddress$}
 
-\newlfmP{noLines}
+\greetto{$greeting$}
+\closeline{Sincerely yours, \newline \newline \fromsig{\includegraphics[scale=1.5]{Signature.png}}} % Closing text
+
+% \newlfmP{noLines}
 
 \begin{document}
 

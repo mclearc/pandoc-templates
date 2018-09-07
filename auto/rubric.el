@@ -1,10 +1,10 @@
 (TeX-add-style-hook
- "default"
+ "rubric"
  (lambda ()
    (TeX-add-to-alist 'LaTeX-provided-class-options
                      '(("$documentclass$" "$if(fontsize)$$fontsize$" "$endif$$if(lang)$$babel-lang$" "$endif$$if(papersize)$$papersize$" "$endif$$for(classoption)$$classoption$$sep$" "$endfor$")))
    (TeX-add-to-alist 'LaTeX-provided-package-options
-                     '(("$fontfamily$" "$for(fontfamilyoptions)$$fontfamilyoptions$$sep$" "$endfor$") ("fontenc" "$if(fontenc)$$fontenc$$else$T1$endif$") ("inputenc" "utf8") ("geometry" "$for(geometry)$$geometry$$sep$" "$endfor$") ("babel" "shorthands=off" "$for(babel-otherlangs)$$babel-otherlangs$" "$endfor$main=$babel-lang$") ("biblatex" "hyperref=true" "backref=true" "backend=biber" "style=philosophy-modern" "autocite=footnote" "isbn=false" "doi=true" "url=false" "") ("adjustbox" "export") ("ulem" "normalem") ("bidi" "RTLdocument") ("csquotes" "autostyle") ("xcolor" "usenames" "dvipsnames" "svgnames" "table") ("footmisc" "hang" "flushmargin" "stable" "multiple")))
+                     '(("$fontfamily$" "$for(fontfamilyoptions)$$fontfamilyoptions$$sep$" "$endfor$") ("fontenc" "$if(fontenc)$$fontenc$$else$T1$endif$") ("inputenc" "utf8") ("geometry" "$for(geometry)$$geometry$$sep$" "$endfor$") ("babel" "shorthands=off" "$for(babel-otherlangs)$$babel-otherlangs$" "$endfor$main=$babel-lang$") ("biblatex" "hyperref=true" "backref=true" "backend=biber" "style=philosophy-modern" "autocite=footnote" "isbn=false" "doi=true" "url=false" "") ("adjustbox" "export") ("ulem" "normalem") ("bidi" "RTLdocument") ("csquotes" "italian=guillemets") ("xcolor" "usenames" "dvipsnames" "svgnames" "table") ("footmisc" "hang" "flushmargin" "stable" "multiple")))
    (add-to-list 'LaTeX-verbatim-environments-local "VerbatimOut")
    (add-to-list 'LaTeX-verbatim-environments-local "SaveVerbatim")
    (add-to-list 'LaTeX-verbatim-environments-local "LVerbatim*")
@@ -60,7 +60,6 @@
     "adjustbox"
     "ulem"
     "bidi"
-    "csquotes"
     "soul"
     "mdwlist"
     "enumitem"
@@ -72,6 +71,7 @@
     "epigraph"
     "flexisym"
     "realscripts"
+    "csquotes"
     "comment"
     "xcolor"
     "footmisc"
@@ -83,8 +83,6 @@
     '("RL" 1)
     "euro"
     "tightlist"
-    "oldparagraph"
-    "oldsubparagraph"
     "maxwidth"
     "maxheight"
     "symbolfootnote"

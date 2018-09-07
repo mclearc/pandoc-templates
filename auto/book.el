@@ -1,20 +1,18 @@
 (TeX-add-style-hook
- "default"
+ "book"
  (lambda ()
    (TeX-add-to-alist 'LaTeX-provided-class-options
                      '(("$documentclass$" "$if(fontsize)$$fontsize$" "$endif$$if(lang)$$babel-lang$" "$endif$$if(papersize)$$papersize$" "$endif$$for(classoption)$$classoption$$sep$" "$endfor$")))
    (TeX-add-to-alist 'LaTeX-provided-package-options
-                     '(("$fontfamily$" "$for(fontfamilyoptions)$$fontfamilyoptions$$sep$" "$endfor$") ("fontenc" "$if(fontenc)$$fontenc$$else$T1$endif$") ("inputenc" "utf8") ("geometry" "$for(geometry)$$geometry$$sep$" "$endfor$") ("babel" "shorthands=off" "$for(babel-otherlangs)$$babel-otherlangs$" "$endfor$main=$babel-lang$") ("biblatex" "hyperref=true" "backref=true" "backend=biber" "style=philosophy-modern" "autocite=footnote" "isbn=false" "doi=true" "url=false" "") ("adjustbox" "export") ("ulem" "normalem") ("bidi" "RTLdocument") ("csquotes" "autostyle") ("xcolor" "usenames" "dvipsnames" "svgnames" "table") ("footmisc" "hang" "flushmargin" "stable" "multiple")))
+                     '(("$fontfamily$" "$for(fontfamilyoptions)$$fontfamilyoptions$$sep$" "$endfor$") ("fontenc" "$if(fontenc)$$fontenc$$else$T1$endif$") ("inputenc" "utf8") ("geometry" "$for(geometry)$$geometry$$sep$" "$endfor$") ("babel" "shorthands=off" "$for(babel-otherlangs)$$babel-otherlangs$" "$endfor$main=$babel-lang$") ("biblatex" "hyperref=true" "backref=true" "backend=biber" "style=philosophy-modern" "autocite=footnote" "isbn=false" "doi=true" "url=false" "") ("ulem" "normalem") ("bidi" "RTLdocument") ("csquotes" "italian=guillemets") ("xcolor" "usenames" "dvipsnames" "svgnames" "table") ("footmisc" "hang" "flushmargin" "stable" "multiple") ("fncychap" "Lenny")))
+   (add-to-list 'LaTeX-verbatim-environments-local "code")
    (add-to-list 'LaTeX-verbatim-environments-local "VerbatimOut")
    (add-to-list 'LaTeX-verbatim-environments-local "SaveVerbatim")
-   (add-to-list 'LaTeX-verbatim-environments-local "LVerbatim*")
    (add-to-list 'LaTeX-verbatim-environments-local "LVerbatim")
-   (add-to-list 'LaTeX-verbatim-environments-local "BVerbatim*")
    (add-to-list 'LaTeX-verbatim-environments-local "BVerbatim")
-   (add-to-list 'LaTeX-verbatim-environments-local "Verbatim*")
    (add-to-list 'LaTeX-verbatim-environments-local "Verbatim")
    (add-to-list 'LaTeX-verbatim-environments-local "lstlisting")
-   (add-to-list 'LaTeX-verbatim-environments-local "code")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "Verb")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "lstinline")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperref")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperimage")
@@ -57,46 +55,46 @@
     "booktabs"
     "graphicx"
     "grffile"
-    "adjustbox"
     "ulem"
     "bidi"
-    "csquotes"
     "soul"
+    "emptypage"
     "mdwlist"
     "enumitem"
     "fancyhdr"
     "lastpage"
     "type1cm"
-    "fix-cm"
     "lettrine"
     "epigraph"
     "flexisym"
     "realscripts"
+    "csquotes"
     "comment"
     "xcolor"
     "footmisc"
     "titling"
     "footnote"
-    "manyfoot")
+    "manyfoot"
+    "fncychap")
    (TeX-add-symbols
+    '("subtitle" 1)
     '("LR" 1)
     '("RL" 1)
     "euro"
     "tightlist"
-    "oldparagraph"
-    "oldsubparagraph"
     "maxwidth"
     "maxheight"
+    "oldparagraph"
+    "oldsubparagraph"
     "symbolfootnote"
     "thefootnote")
    (LaTeX-add-environments
+    '("code")
     "RTL"
     "LTR")
    (LaTeX-add-bibliographies
     "$for(bibliography)$$bibliography$$sep$"
     "$endfor$")
-   (LaTeX-add-fontspec-newfontcmds
-    "smallcapsfont")
    (LaTeX-add-xcolor-definecolors
     "coolblack"
     "darkblue"
